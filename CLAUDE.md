@@ -15,7 +15,7 @@ uvicorn api.main:app --reload
 uvicorn api.main:app --host 0.0.0.0 --port 8000 --reload
 ```
 
-No test runner or linter is configured yet. When adding tests, use `pytest` with `pytest-asyncio` for async test support.
+No test runner or linter is configured yet. When adding tests, use `pytest` with `pytest-asyncio` for async test support. When adding a linter, use `ruff`.
 
 ## Architecture
 
