@@ -5,6 +5,13 @@ class DeployRepository:
     def __init__(self, db):
         self.db = db
 
+    async def get(self, deploy_id):
+        row = await self.db.fetchrow(
+            "SELECT * FROM deployments WHERE id = $1",
+            deploy_id
+        )
+        return row
+
     async def create(self, req):
         deploy_id = str(uuid.uuid4())
         await self.db.execute(
