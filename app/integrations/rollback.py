@@ -1,13 +1,11 @@
 import asyncio
 
 
-async def helm_deploy(release_name: str, chart_path: str, namespace: str) -> str:
+async def helm_rollback(release_name: str, namespace: str) -> str:
     process = await asyncio.create_subprocess_exec(
         "helm",
-        "upgrade",
-        "--install",
+        "rollback",
         release_name,
-        chart_path,
         "--namespace",
         namespace,
         stdout=asyncio.subprocess.PIPE,
@@ -17,6 +15,6 @@ async def helm_deploy(release_name: str, chart_path: str, namespace: str) -> str
 
     if process.returncode != 0:
         error_output = stderr.decode().strip()
-        raise RuntimeError(f"Helm deployment failed for {release_name}: {error_output}")
+        raise RuntimeError(f"Helm rollback failed for {release_name}: {error_output}")
 
     return stdout.decode().strip()
