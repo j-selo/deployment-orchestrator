@@ -1,4 +1,4 @@
-# deployment-orchestrator
+# Deployment Orchestrator Service
 
 A FastAPI service that orchestrates containerized deployments across environments (dev, staging, prod) with policy enforcement, conflict detection, and Temporal-based workflow execution.
 
