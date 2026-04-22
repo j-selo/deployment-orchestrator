@@ -44,5 +44,4 @@ POST /deploy/  →  DeployService.schedule()  →  repo.create() + orchestrator.
 
 ## Known gaps
 
-- `app/api/routes/deploy.py` route handler is a stub — it doesn't instantiate `DeployService` or parse `DeployRequest`
 - `db/01_create_migrations.sql` defines the `deployments` table but there is no migration tool (e.g. Alembic) to track and apply versioned schema changes
