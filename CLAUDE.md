@@ -44,8 +44,5 @@ POST /deploy/  →  DeployService.schedule()  →  repo.create() + orchestrator.
 
 ## Known gaps
 
-- `schemas/schema.py` `DeployRequest` is missing the `approved: bool` field that `policies.require_prod_approval` reads
-- `api/routes/deploy.py` route handler is a stub — it doesn't instantiate `DeployService` or parse `DeployRequest`
-- `services/deploy-service.py` uses a hyphen in the filename, which prevents standard Python imports; rename to `deploy_service.py`
-- No `__init__.py` files exist in any package directory
-- No database models or migrations are defined yet
+- `app/api/routes/deploy.py` route handler is a stub — it doesn't instantiate `DeployService` or parse `DeployRequest`
+- `db/01_create_migrations.sql` defines the `deployments` table but there is no migration tool (e.g. Alembic) to track and apply versioned schema changes
