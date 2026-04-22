@@ -8,12 +8,20 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 # Install dependencies
 pip install -r requirements.txt
 
-# Run the development server
-uvicorn api.main:app --reload
+# Apply the database schema
+psql $DATABASE_URL -f db/01_create_migrations.sql
+
+# Run the API server
+uvicorn app.api.main:app --reload
 
 # Run with a specific host/port
-uvicorn api.main:app --host 0.0.0.0 --port 8000 --reload
+uvicorn app.api.main:app --host 0.0.0.0 --port 8000 --reload
+
+# Run the Temporal worker (separate terminal — must be running alongside the API server)
+python -m worker.worker
 ```
+
+Requires `DATABASE_URL`, `SLACK_BOT_TOKEN`, and `SLACK_CHANNEL` environment variables. PostgreSQL and a Temporal server (`localhost:7233`) must be running before starting the API server or worker.
 
 No test runner or linter is configured yet. When adding tests, use `pytest` with `pytest-asyncio` for async test support. When adding a linter, use `ruff`.
 

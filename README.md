@@ -11,14 +11,41 @@ A FastAPI service that orchestrates containerized deployments across environment
 - **SQLAlchemy (async) + asyncpg** — async PostgreSQL persistence
 - **Pydantic v2** — request validation and settings
 
-## Setup
+## Prerequisites
+
+The following must be installed and running before starting the service:
+
+- **PostgreSQL** — primary database
+- **Temporal Server** — workflow engine, listening on `localhost:7233`
+- **Kubernetes cluster** — target environment for deployments
+- **Helm** — used by the worker to deploy and rollback releases
+- **kubectl** — required for Kubernetes cluster interaction
+
+## Environment variables
+
+| Variable | Purpose | Example |
+|---|---|---|
+| `DATABASE_URL` | PostgreSQL connection string | `postgresql://user:password@localhost:5432/deployments` |
+| `SLACK_BOT_TOKEN` | Slack API token for deployment notifications | `xoxb-...` |
+| `SLACK_CHANNEL` | Slack channel to post notifications to | `#deployments` |
+
+## Setup and starting the service
 
 ```bash
+# 1. Install Python dependencies
 pip install -r requirements.txt
-uvicorn api.main:app --reload
+
+# 2. Apply the database schema
+psql $DATABASE_URL -f db/01_create_migrations.sql
+
+# 3. Start the API server
+uvicorn app.api.main:app --reload
+
+# 4. Start the Temporal worker (separate terminal)
+python -m worker.worker
 ```
 
-Requires a running PostgreSQL database and a Temporal server. Configure connection details via environment variables (pydantic-settings).
+PostgreSQL and Temporal Server must already be running before steps 3 and 4.
 
 ## API
 
