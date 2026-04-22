@@ -110,7 +110,6 @@ deployment-orchestrator/
 
 | Policy | Rule |
 |--------|------|
-| Prod approval | `approved: true` required for prod |
 | Business hours | Prod deploys only allowed 09:00–17:00 local time |
 | Single prod deploy | Only one active prod deployment at a time |
 | Deploy frequency | No more than one deploy per service per 10 minutes |
