@@ -64,6 +64,48 @@ Trigger a deployment. Runs validation, conflict checks, and policy enforcement b
 }
 ```
 
+## Project structure
+
+```
+deployment-orchestrator/
+├── app/
+│   ├── api/
+│   │   ├── main.py                 # FastAPI app entry point, router registration
+│   │   └── routes/
+│   │       └── deploy.py           # POST /deploy/ endpoint
+│   ├── core/
+│   │   └── db.py                   # Async database connection
+│   ├── domain/
+│   │   ├── conflict.py             # Concurrent deployment conflict detection
+│   │   ├── policies.py             # Deployment policy enforcement
+│   │   └── validators.py           # Request validation rules
+│   ├── integrations/
+│   │   ├── helm.py                 # Helm release management
+│   │   ├── kubernetes.py           # Kubernetes cluster interaction
+│   │   ├── rollback.py             # Rollback logic
+│   │   └── slack.py                # Slack notifications
+│   ├── orchestrator/
+│   │   └── client.py               # Temporal client wrapper
+│   ├── repositories/
+│   │   └── deploy_repo.py          # Database access layer
+│   ├── schemas/
+│   │   └── schema.py               # Pydantic request/response models
+│   ├── services/
+│   │   └── deploy_service.py       # Deployment business logic
+│   └── state/
+│       └── status.py               # Deployment status tracking
+├── db/
+│   └── 01_create_migrations.sql    # Database schema
+├── worker/
+│   ├── activities/
+│   │   └── deploy_activities.py    # Temporal activity definitions
+│   ├── workflows/
+│   │   └── deploy_workflows.py     # Temporal workflow definitions
+│   └── worker.py                   # Temporal worker entry point
+├── requirements.txt
+└── README.md
+```
+
 ## Deployment policies
 
 | Policy | Rule |

@@ -2,7 +2,7 @@ from fastapi import APIRouter
 from db import get_db
 from app.repositories.deploy_repo import DeployRepository
 from app.services.deploy_service import DeployService
-from temporalio import TemporalioClient
+from temporalio.client import Client
 from app.schemas import DeployRequest
 
 router = APIRouter()

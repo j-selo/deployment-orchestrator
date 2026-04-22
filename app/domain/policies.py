@@ -15,12 +15,6 @@ def block_business_hours(req):
         raise Exception("Prod deploys are only allowed during business hours")
 
 
-# Prod deployments require approval
-def require_prod_approval(req):
-    if req.env == "prod" and not req.approved:
-        raise Exception("Production deployments require approval")
-
-
 # Block if error rate is high
 async def check_error_rate(repo, req):
     error_rate = await repo.get_error_rate(req.service)

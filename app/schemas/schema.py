@@ -6,4 +6,6 @@ class DeployRequest(BaseModel):
     image: str
     env: str
     time: datetime.datetime
-    approved: bool = False
+class DeployResponse(BaseModel):
+    id: str
+    status: str
