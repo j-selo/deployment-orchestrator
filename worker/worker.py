@@ -7,7 +7,7 @@ from worker.activities.deploy_activities import (
     deploy_activity,
     health_check_activity,
     rollback_activity,
-    notify_activity
+    # notify_activity
 )
 
 async def main():
@@ -23,7 +23,7 @@ async def main():
             deploy_activity,
             health_check_activity,
             rollback_activity,
-            notify_activity
+            # notify_activity
         ]
     )
 

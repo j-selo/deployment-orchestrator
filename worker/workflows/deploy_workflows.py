@@ -4,7 +4,7 @@ from worker.activities import (
     deploy_activity,
     health_check_activity,
     rollback_activity,
-    notify_activity
+    # notify_activity
 )
 
 @workflow.defn(name="DeployWorkflow")
@@ -30,9 +30,9 @@ class DeployWorkflow:
             )
             return f"Deployment {name} failed, rollback completed"
 
-        await workflow.execute_activity(
-            notify_activity,
-            args=[name, "Deployment completed successfully"],
-            start_to_close_timeout=timedelta(minutes=2)
-        )
+        # await workflow.execute_activity(
+        #     notify_activity,
+        #     args=[name, "Deployment completed successfully"],
+        #     start_to_close_timeout=timedelta(minutes=2)
+        # )
         return f"Deployment {name} completed successfully"

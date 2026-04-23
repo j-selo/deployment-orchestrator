@@ -65,21 +65,21 @@ async def rollback_activity(deploy_id: str):
     )
     return f"Rollback for deployment {deploy_id} completed"
 
-@activity.defn
-async def notify_activity(deploy_id: str, message: str):
-    db = await get_db()
-    await db.execute(
-        "UPDATE deployments SET status = $1 WHERE id = $2",
-        "notifying",
-        deploy_id,
-    )
-    await notify_start(deploy_id, message)
-    await notify_end(deploy_id, message)
-    await db.execute(
-        "UPDATE deployments SET status = $1 WHERE id = $2",
-        "notified",
-        deploy_id,
-    )
-    print(f"Notifying about deployment ID: {deploy_id} with message: {message}")
-    return f"Notification for deployment {deploy_id} sent with message: {message}"
+# @activity.defn
+# async def notify_activity(deploy_id: str, message: str):
+#     db = await get_db()
+#     await db.execute(
+#         "UPDATE deployments SET status = $1 WHERE id = $2",
+#         "notifying",
+#         deploy_id,
+#     )
+#     await notify_start(deploy_id, message)
+#     await notify_end(deploy_id, message)
+#     await db.execute(
+#         "UPDATE deployments SET status = $1 WHERE id = $2",
+#         "notified",
+#         deploy_id,
+#     )
+#     print(f"Notifying about deployment ID: {deploy_id} with message: {message}")
+#     return f"Notification for deployment {deploy_id} sent with message: {message}"
 
