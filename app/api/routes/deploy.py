@@ -12,7 +12,7 @@ router = APIRouter()
 async def deploy(req: DeployRequest):
     db        = await get_db()                      # Connect to the database
     repo      = DeployRepository(db)                # Load repository with DB connection
-    client    = await TemporalioClient.connect()    # Connect to Temporal client
+    client    = await Client.connect("localhost:7233")  # Connect to Temporal client
     service   = DeployService(repo, client)         # Load service with repository and Temporal client
     deploy_id = await service.schedule(req)         # Schedule deployment, trigger the workflow and status updates
     return {"message": f"Deployment request received {{'deploy_id': {deploy_id}}}"}

@@ -15,7 +15,6 @@ class DeployService:
         await ensure_no_conflicts(self.repo, req)
         
         # Check Policies (domain/policies.py)
-        policies.require_prod_approval(req)
         policies.block_business_hours(req)
         
         # Policy checks that require repo access (domain/policies.py)

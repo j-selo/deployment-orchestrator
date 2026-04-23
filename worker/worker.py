@@ -1,9 +1,9 @@
 import temporalio.worker
-import temporalio.TemporalioClient
+from temporalio.client import Client
 import asyncio
 
-from workflows import SchedulerDeployWorkflow
-from activites import (
+from worker.workflows.deploy_workflows import DeployWorkflow
+from worker.activities.deploy_activities import (
     deploy_activity,
     health_check_activity,
     rollback_activity,
@@ -12,13 +12,13 @@ from activites import (
 
 async def main():
     # Connect to Temporal server
-    client = await TemporalioClient.connect("localhost:7233")
+    client = await Client.connect("localhost:7233")
 
     # Create a worker and register the workflow and activities
     worker = temporalio.worker.Worker(
         client,
         task_queue="deploy-queue",
-        workflows=[SchedulerDeployWorkflow],
+        workflows=[DeployWorkflow],
         activities=[
             deploy_activity,
             health_check_activity,
